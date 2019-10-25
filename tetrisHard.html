@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>game tetris</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <style>
+        canvas {
+            border: solid .2em rgb(255, 255, 255);
+            height: 90vh;
+            ;
+        }
+    </style>
+</head>
+
+<body class="body2">
+    <div class="audio">
+        <audio src="./tetrisMusic.mp3" loop autoplay controls></audio>
+    </div>
+    <a href="./index.html">
+        <input type="button" class="tombolLogout1" value="Logout" id="logout" />
+    </a>
+    <div id="namanick" class="namanick"></div>
+    <div class="bodyPageGame">
+        <canvas id="tetris" width="240" height="400"></canvas>
+        <button type="button" id="start_game">Start</button>
+    </div>
+
+    <script src="tetrisHard.js"></script>
+</body>
+
+</html>

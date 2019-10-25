@@ -1,0 +1,98 @@
+body {
+  padding: 0;
+  margin: 0;
+}
+
+*{
+	outline: none;
+}
+
+.vid-container{
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.bgvid{
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100vw;
+}
+
+.box{
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  font-family: tahoma;
+  color: white;
+  background: rgba(0, 0, 0, 0.13);
+  padding: 30px 0px;
+}
+
+.box h1{
+  text-align: center;
+  margin: 30px 0;
+  font-size: 30px;
+}
+
+/* .box input{
+  display: block;
+  width:  300px;
+  margin: 20px auto;
+  padding: 20px;
+  background: white;
+  color: black;
+  border: 0;
+  border-radius: 50px;
+  font-size: 10px;
+  text-transform: uppercase;
+  font-family: tahoma;
+} */
+
+.formLogin{
+	box-sizing : border-box;
+	width: 100%;
+	padding: 10px;
+	font-size: 11pt;
+	margin-bottom: 20px;
+	border-radius: 15px;
+}
+
+.tombolLogin{
+	background: rgba(255, 255, 255, 0.486);
+	color: white;
+	font-size: 11pt;
+	width: 100%;
+	cursor:pointer;
+	border-radius:50px;
+	padding:10px 20px 10px 0;
+	text-align:center;
+	text-indent:300px;
+	display:block;
+	margin:0 auto;
+
+	 /* Animations: */
+	 /* -webkit-transition-timing-function: ease-in-out;
+	 -webkit-transition-duration: .4s;
+	 -webkit-transition-property: all; */
+	 
+	 /* -moz-transition-timing-function: ease-in-out;
+	 -moz-transition-duration: .4s;
+	 -moz-transition-property: all; */
+}
+
+.tombolLogin:hover {
+	background-position: 65px 5px;
+	text-indent: 15px;  
+  }
+  
+  .kotakTengah{
+	width: 350px;
+	background: transparent;
+	background-color:rgba(0, 0, 0, 0.555);
+	margin: 80px auto;
+	padding: 30px 20px;
+	text-align: center;
+	border-radius: 15px;
+}
