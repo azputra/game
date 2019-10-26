@@ -57,8 +57,7 @@ function collision(head, arr) {
 function draw() {
     ctx.drawImage(ground, 0, 0)
     for (let i = 0; i < snake.length; i++) {
-        // ctx.fillStyle = (i == 0) ? "green" : "white"
-        if (i == 0) {
+        if (i > 0) {
             ctx.fillStyle = "green"
         } else {
             ctx.fillStyle = "white"
@@ -90,7 +89,7 @@ function draw() {
     }
 
     if (snakeX === food['x'] && snakeY === food['y']) {
-        score += 2
+        score += 5
         food = food = {
             x: Math.floor(Math.random() * 17 + 1) * box,
             y: Math.floor(Math.random() * 15 + 3) * box,
@@ -118,9 +117,7 @@ function draw() {
     ctx.fillText(score, 2 * box, 1.6 * box)
 }
 
-//memanggil fungsi draw setiap 100 ms
-
-var game = setInterval(draw, 100)
-
+// memanggil fungsi draw setiap 100 ms
+var game = setInterval(draw, 200)
 var storage = localStorage.getItem('nickName');
 document.getElementById('namanick').innerHTML = 'Selamat Datang ' + storage;

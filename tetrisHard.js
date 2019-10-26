@@ -2,18 +2,18 @@ const canvas = document.getElementById('tetris');
 const context = canvas.getContext('2d');
 
 //papan game area yang akan berisi game tetris
-function draw(){
+function draw() {
     context.fillStyle = 'rgb(0, 0, 0)'; //properti canvas fillstyle mengisi papan game dengan warna
     context.fillRect(0, 0, canvas.width, canvas.height); //dengan  fillrect mengatur posisi fill papan game dan mengatur lebar tingginya
-    
+
     updateScore();
-    drawMatrix(arena, {kolom:0, baris:0});
+    drawMatrix(arena, { kolom: 0, baris: 0 });
     drawMatrix(player.matrix, player.pos) //posisi tetris pieces 
 }
 
 //potongan matrix
 function buatPotonganTetris(str) {
-    if ( str === 'T') {
+    if (str === 'T') {
         return [
             [0, 0, 0],
             [1, 1, 1],
@@ -60,23 +60,23 @@ function buatPotonganTetris(str) {
 
 //posisi tetris pieces
 function drawMatrix(matrix, offset) {
-    matrix.forEach (function(row, baris) {
-        row.forEach(function (value, kolom){
-            if (value !== 0){
+    matrix.forEach(function (row, baris) {
+        row.forEach(function (value, kolom) {
+            if (value !== 0) {
                 // context.fillStyle = colors[value]; //warna tetris pieces 
                 // context.fillRect(kolom + offset.kolom, //untuk papan gamenya
                 //                  baris + offset.baris,
                 //                  1, 1); //lebar dan tinggi potongan tetris
-                let imgTag=document.createElement("IMG");
-					imgTag.src=colors[value];
-					context.drawImage(imgTag , kolom + offset.kolom , baris + offset.baris , 1 , 1);
+                let imgTag = document.createElement("IMG");
+                imgTag.src = colors[value];
+                context.drawImage(imgTag, kolom + offset.kolom, baris + offset.baris, 1, 1);
             }
         });
     });
 }
 
 //warna potongan tetris
-const colors=[
+const colors = [
     null,
     './image/red.png',
     './image/purple.png',
@@ -90,19 +90,19 @@ const colors=[
 context.scale(20, 20); //dengan scale untuk menentuka skala context (skala si potongan tetris)\
 
 const player = {
-    pos: {kolom:5, baris:0},
+    pos: { kolom: 5, baris: 0 },
     matrix: null,
-    score : 0,
+    score: 0,
 }
 
 //membuat matrix berjalan
 let dropInterval = 60;
 let time = 0;
-function update(){
+function update() {
     time++
     // console.log(time)
     if (time > dropInterval) {
-      playerDrop();
+        playerDrop();
     }
     draw();
 }
@@ -110,12 +110,12 @@ function update(){
 //yang terjadi jika kondisi time > dropinterval
 function playerDrop() {
     player.pos.baris++
-    if (batasPapanGame(arena, player)) { 
-        player.pos.baris--; 
+    if (batasPapanGame(arena, player)) {
+        player.pos.baris--;
         merge(arena, player)
-        sapuArena ();
-        playerRiset ();
-        updateScore ();
+        sapuArena();
+        playerRiset();
+        updateScore();
     }
     time = 0
 }
@@ -123,24 +123,24 @@ function playerDrop() {
 //menggunakan event keydown untuk menentukan keycode untuk menggerakan kekanan dan kiri si potongan tetris
 document.addEventListener('keydown', control);
 function control(event) {
-    if (event.keyCode == 37){
+    if (event.keyCode == 37) {
         playerMove(-1)
-    } else if (event.keyCode == 39){
+    } else if (event.keyCode == 39) {
         playerMove(+1)
-    } else if (event.keyCode == 40){
-        if(gameRun){
+    } else if (event.keyCode == 40) {
+        if (gameRun) {
             playerDrop();
         }
-    } else if (event.keyCode == 38){
-        playerRotasi (+1)
+    } else if (event.keyCode == 38) {
+        playerRotasi(+1)
     }
 }
 
 //player move kanan dan kiri
 function playerMove(arah) {
     player.pos.kolom += arah
-    if(batasPapanGame(arena, player))
-    player.pos.kolom -= arah
+    if (batasPapanGame(arena, player))
+        player.pos.kolom -= arah
 }
 
 //create matrix di dalam array agar potongan tetris / matrix berhenti
@@ -152,14 +152,14 @@ function buatMatrix(w, h) {
     return matrix;
 }
 
-const arena = buatMatrix(12,20) //jumlah array pada arena 12 kolom 20 baris
+const arena = buatMatrix(12, 20) //jumlah array pada arena 12 kolom 20 baris
 
 //menaruh index ke dalam arena
 function merge(arena, player) {
     player.matrix.forEach(function (row, baris) {
         row.forEach(function (value, kolom) {
-            if (value !== 0){
-                arena [baris + player.pos.baris][kolom + player.pos.kolom] = value;
+            if (value !== 0) {
+                arena[baris + player.pos.baris][kolom + player.pos.kolom] = value;
             }
         })
     })
@@ -169,11 +169,11 @@ function merge(arena, player) {
 function batasPapanGame(arena, player) {
     const m = player.matrix
     const o = player.pos
-    for (let baris = 0; baris < m.length; baris++){
+    for (let baris = 0; baris < m.length; baris++) {
         for (let kolom = 0; kolom < m[baris].length; kolom++) {
-            if (m [baris][kolom] !== 0 &&
-               (arena [baris + o.baris] && 
-                arena [baris + o.baris][kolom + o.kolom]) !== 0) {
+            if (m[baris][kolom] !== 0 &&
+                (arena[baris + o.baris] &&
+                    arena[baris + o.baris][kolom + o.kolom]) !== 0) {
                 return true
             }
         }
@@ -185,17 +185,17 @@ function batasPapanGame(arena, player) {
 function rotasi(matrix, dir) {
     for (let baris = 0; baris < matrix.length; baris++) {
         for (let kolom = 0; kolom < baris; kolom++) {
-            [ matrix[kolom][baris],
-              matrix[baris][kolom],
-            ] = [ matrix[baris][kolom],
-                  matrix[kolom][baris],
+            [matrix[kolom][baris],
+            matrix[baris][kolom],
+            ] = [matrix[baris][kolom],
+            matrix[kolom][baris],
                 ];
         }
     }
     if (dir > 0) {
         matrix.forEach(row => row.reverse());
     } else {
-      matrix.reverse()
+        matrix.reverse()
     }
 }
 
@@ -218,80 +218,80 @@ function playerRotasi(dir) {
 //reset potongan tetris untuk merandom matrix tetris yang keluar
 function playerRiset() {
     const pieces = 'ILJOTSZ'
-    player.matrix = buatPotonganTetris (pieces [pieces.length * Math.random() | 0]);
+    player.matrix = buatPotonganTetris(pieces[pieces.length * Math.random() | 0]);
     player.pos.baris = 0;
     player.pos.kolom = (arena[0].length / 2 | 0) - (player.matrix[0].length / 2 | 0);
-    if (batasPapanGame(arena, player)){
+    if (batasPapanGame(arena, player)) {
         arena.forEach(row => row.fill(0));
         player.score = 0;
-        gameRun=false;
+        gameRun = false;
     }
 }
 
 //fungsi menyapu index yanga da di dalam array
 function sapuArena() {
     let rowcount = 1;
-    game : for (let baris = arena.length - 1; baris > 0; baris--) {
+    game: for (let baris = arena.length - 1; baris > 0; baris--) {
         for (let kolom = 0; kolom < arena[baris].length; kolom++) {
-           if (arena[baris][kolom] === 0){
-               continue game;
+            if (arena[baris][kolom] === 0) {
+                continue game;
             }
         }
-    const row = arena.splice(baris, 1)[0].fill(0)
-    arena.unshift(row);
-    ++baris;
-    player.score += rowcount * 10;
-    rowcount *= 2;
+        const row = arena.splice(baris, 1)[0].fill(0)
+        arena.unshift(row);
+        ++baris;
+        player.score += rowcount * 10;
+        rowcount *= 2;
     }
 }
 
-function updateScore(){
-    context.font="bold 1px Techno";
-    context.fillStyle="#ffffff";
-    context.textAlign="left";
-    context.textBaseline="top";
-    context.fillText("Score:"+ player.score, 0.2,0);
-    if(player.score < 50){
+function updateScore() {
+    context.font = "bold 1px Techno";
+    context.fillStyle = "#ffffff";
+    context.textAlign = "left";
+    context.textBaseline = "top";
+    context.fillText("Score:" + player.score, 0.2, 0);
+    if (player.score < 50) {
         dropInterval = 60;
-    } else if (player.score >= 51 && player.score <= 100){
+    } else if (player.score >= 51 && player.score <= 100) {
         dropInterval = 50;
-    } else if (player.score >= 101 && player.score <= 150){
+    } else if (player.score >= 101 && player.score <= 150) {
         dropInterval = 40;
-    } else if (player.score >= 151 && player.score <= 200){
+    } else if (player.score >= 151 && player.score <= 200) {
         dropInterval = 30;
-    } else if (player.score >= 201 && player.score <= 250){
+    } else if (player.score >= 201 && player.score <= 250) {
         dropInterval = 20;
-    } else if (player.score > 251){
+    } else if (player.score > 251) {
         dropInterval = 10;
     }
 };
 
 function gameOver() {
-	clearInterval(gameLoop);
-	context.font="2px Techno";
-	context.fillStyle="#ffffff";
-	context.textAlign="center";
-	context.textBaseline="middle";
-	context.fillText("Game Over",(canvas.width/20)/2,(canvas.width/20)/2);
-	document.getElementById("start_game").disabled=false;
+    clearInterval(gameLoop);
+    context.font = "2px Techno";
+    context.fillStyle = "#ffffff";
+    context.textAlign = "center";
+    context.textBaseline = "middle";
+    context.fillText("Game Over", (canvas.width / 20) / 2, (canvas.width / 20) / 2);
+    document.getElementById("start_game").disabled = false;
 }
 
-document.getElementById("start_game").onclick=function(){
-    gameRun=true;
+document.getElementById("start_game").onclick = function () {
+    gameRun = true;
     playerRiset();
-    gameLoop=setInterval(function(){
-        if(gameRun){
+    gameLoop = setInterval(function () {
+        if (gameRun) {
             update();
         }
-        else{
+        else {
             gameOver();
         }
-    },10);
-    this.disabled=true;
+    }, 10);
+    this.disabled = true;
 };
 
 var storage = localStorage.getItem('nickName');
-document.getElementById('namanick').innerHTML = 'Selamat Datang ' +storage;
+document.getElementById('namanick').innerHTML = 'Selamat Datang ' + storage;
 
 let gameLoop;
 let gamerun = false;
